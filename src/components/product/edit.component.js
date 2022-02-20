@@ -14,6 +14,8 @@ export default function EditUser() {
 
   const [title, setTitle] = useState("")
   const [description, setDescription] = useState("")
+  const [telephone, setTelephone] = useState("")
+  const [email, setEmail] = useState("")
   const [image, setImage] = useState(null)
   const [validationError,setValidationError] = useState({})
 
@@ -23,9 +25,12 @@ export default function EditUser() {
 
   const fetchProduct = async () => {
     await axios.get(`http://localhost:8000/api/products/${id}`).then(({data})=>{
-      const { title, description } = data.product
+      const { title, description, telephone, email } = data.product
       setTitle(title)
       setDescription(description)
+      setTelephone(telephone)
+      setEmail(email)
+
     }).catch(({response:{data}})=>{
       Swal.fire({
         text:data.message,
@@ -45,6 +50,8 @@ export default function EditUser() {
     formData.append('_method', 'PATCH');
     formData.append('title', title)
     formData.append('description', description)
+    formData.append('telephone', telephone)
+    formData.append('email', email)
     if(image!==null){
       formData.append('image', image)
     }
@@ -113,6 +120,26 @@ export default function EditUser() {
                             }}/>
                         </Form.Group>
                       </Col>
+                  </Row>
+                  <Row> 
+                      <Col>
+                        <Form.Group controlId="Telephone">
+                            <Form.Label>Telephone</Form.Label>
+                            <Form.Control type="text" value={telephone} onChange={(event)=>{
+                              setTelephone(event.target.value)
+                            }}/>
+                        </Form.Group>
+                      </Col>  
+                  </Row>
+                  <Row> 
+                      <Col>
+                        <Form.Group controlId="Email">
+                            <Form.Label>Email</Form.Label>
+                            <Form.Control type="text" value={email} onChange={(event)=>{
+                              setEmail(event.target.value)
+                            }}/>
+                        </Form.Group>
+                      </Col>  
                   </Row>
                   <Row>
                     <Col>

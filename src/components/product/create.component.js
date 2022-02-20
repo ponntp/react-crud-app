@@ -12,6 +12,8 @@ export default function CreateProduct() {
 
   const [title, setTitle] = useState("")
   const [description, setDescription] = useState("")
+  const [telephone, setTelephone] = useState("")
+  const [email, setEmail] = useState("")
   const [image, setImage] = useState()
   const [validationError,setValidationError] = useState({})
 
@@ -26,6 +28,8 @@ export default function CreateProduct() {
 
     formData.append('title', title)
     formData.append('description', description)
+    formData.append('telephone', telephone)
+    formData.append('email', email)
     formData.append('image', image)
 
     await axios.post(`http://localhost:8000/api/products`, formData).then(({data})=>{
@@ -47,7 +51,7 @@ export default function CreateProduct() {
   }
 
   return (
-    <div className="container">
+    <div className="container" >
       <div className="row justify-content-center">
         <div className="col-12 col-sm-12 col-md-6">
           <div className="card">
@@ -92,6 +96,26 @@ export default function CreateProduct() {
                             }}/>
                         </Form.Group>
                       </Col>
+                  </Row>
+                  <Row> 
+                      <Col>
+                        <Form.Group controlId="Telephone">
+                            <Form.Label>Telephone</Form.Label>
+                            <Form.Control type="text" value={telephone} onChange={(event)=>{
+                              setTelephone(event.target.value)
+                            }}/>
+                        </Form.Group>
+                      </Col>  
+                  </Row>
+                  <Row> 
+                      <Col>
+                        <Form.Group controlId="Email">
+                            <Form.Label>Email</Form.Label>
+                            <Form.Control type="text" value={email} onChange={(event)=>{
+                              setEmail(event.target.value)
+                            }}/>
+                        </Form.Group>
+                      </Col>  
                   </Row>
                   <Row>
                     <Col>
